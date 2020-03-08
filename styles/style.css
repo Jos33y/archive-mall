@@ -24,9 +24,9 @@ html,body{
 
 span.logo-head{
     font-family: "Goudy Old Style", Garamond, "Times New Roman", serif;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 700;
-    color: #17192e;
+    color: #FF5500;
     text-transform: uppercase;
 	text-shadow: 2px 2px 0 #bcbcbc;
 	text-decoration: none;

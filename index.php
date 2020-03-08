@@ -107,7 +107,7 @@
     <div class="container"><!-- container begin -->
       <div class="row"><!-- row begin -->
         <?php
-          $get_products = "select * from products  order by 1 ASC LIMIT 0,20";
+          $get_products = "select * from products  order by rand() LIMIT 0,40";
 
           $run_products = mysqli_query($db, $get_products);
 

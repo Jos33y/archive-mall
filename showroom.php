@@ -51,7 +51,7 @@
 
                         if(!isset($_GET['cat'])){
 
-                            $per_page=10;
+                            $per_page=20;
 
                             if(isset($_GET['page'])){
 

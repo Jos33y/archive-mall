@@ -87,6 +87,6 @@ while($row_cart = mysqli_fetch_array($run_cart)){
 
     echo "<script>alert('Your orders has been submitted, Thanks')</script>";
         
-        echo "<script>window.open('customer/my_account.php?pay_offline', '_self')</script>";
+        echo "<script>window.open('customer/my_account.php?my_orders', '_self')</script>";
 
 ?>

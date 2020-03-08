@@ -78,10 +78,7 @@ if(isset($_GET['pro_id'])){
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
   	<link rel="stylesheet" href="css/font-awesome.min.css"/>
 	  <link rel="stylesheet" type="text/css" href="css/flaticon.css"/>
-	  <link rel="stylesheet" href="css/slicknav.min.css"/>
 	  <link rel="stylesheet" href="css/jquery-ui.min.css"/>
-	  <link rel="stylesheet" href="css/owl.carousel.min.css"/>
-	  <link rel="stylesheet" href="css/animate.css"/>
     <link rel="stylesheet" href="styles/style.css"/>
 
 </head>
@@ -104,7 +101,7 @@ if(isset($_GET['pro_id'])){
                   <!-- logo -->
                   <a href="./index.php" >             
                  
-                  <span class="logo-head">Archive Mall </span>
+                  <span class="logo-head">Archive Mall</span>
                   </a>
                 </div>
                   <div class="col-xl-6 col-lg-5">
@@ -157,8 +154,18 @@ if(isset($_GET['pro_id'])){
               <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav mr-auto">
                       <li class="nav-item <?php if($active=='Home') echo'active'; ?>"><a class="nav-link" href="index.php" >Home</a></li>
-                    <li class="nav-item <?php if($active=='Shop') echo'active'; ?>"><a class="nav-link" href="showroom.php">Showroom</a></li>
-
+                      <li class="nav-item dropdown <?php if($active=='Shop') echo'active';?>">
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" data-target="#showroom"
+                      aria-haspopup="true" aria-expanded="false">
+                                  Showroom
+                                </a>
+                                <ul id="showroom" class="dropdown-menu">
+                                  <li>
+                                    <a  class='dropdown-item' href='showroom.php'>Showroom </a>
+                                  </li>
+                                  <?php getPCats(); ?>
+                               </ul>                                                                             
+                              </li>
                     <li class="nav-item <?php if($active=='Account') echo'active'; ?>">
                           <?php        
                              if(!isset($_SESSION['customer_email'])){

@@ -192,10 +192,9 @@ function getPCats(){
         
         
         echo "
-        
-        <li class='nav-item'>
-        <a class='nav-link' href='../showroom.php?p_cat=$p_cat_id'  > $p_cat_title </a>
-    </li>
+        <li>
+            <a  class='dropdown-item' href='../showroom.php?p_cat=$p_cat_id'>$p_cat_title </a>
+        </li>
         ";                               
 
      

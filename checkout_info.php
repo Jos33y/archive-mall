@@ -290,6 +290,7 @@ $customer_zip = $row_customer['customer_zip'];
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
 </body>
 </html>
+
 <?php 
 if(isset($_POST['save'])){
 
@@ -314,11 +315,39 @@ customer_address='$c_address', customer_city='$c_city', customer_state='$c_state
 customer_country='$c_country', customer_zip='$c_zip'  where customer_id = '$update_id'";
 
 $run_customer = mysqli_query($con, $update_customer);
-
 if($run_customer){
 
-    echo "<script>alert('Address Saved Successfully')</script>";
+  echo"<script>window.open('orders.php?c_id=<?php echo $update_id; ?>', '_self')</script>";
+  echo"<script>alert('Address has been saved sucessfully')</script>";
+}
 
-    echo "<script>window.open('orders.php?c_id=<?php echo $update_id; ?>', '_self')</script>";
 }
-}
+
+?>
+
+<script>
+  function payWithPaystack(data){
+    var handler = PaystackPop.setup({
+      key: 'pk_live_cc4046a6477f46665e02a2fc5a5f9edf6eb280dd',
+      email: '<?php echo $customer_email; ?>',
+      amount: '<?php echo $total; ?>00',
+      metadata: {
+         custom_fields: [
+            {
+                display_name: "Mobile Number",
+                variable_name: "mobile_number",
+                value: "<?php echo $customer_phone; ?>"
+            }
+         ]
+      },
+      callback: function(response){
+          alert('success. transaction ref is ' + response.reference);
+          window.open('orders.php?c_id=<?php echo $update_id; ?>', '_self')
+      },
+      onClose: function(){
+          alert('Transaction Cancelled');
+      }
+    });
+    handler.openIframe();
+  }
+</script>

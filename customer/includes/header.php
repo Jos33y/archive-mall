@@ -159,10 +159,18 @@ if(isset($_GET['pro_id'])){
               <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav mr-auto">
                       <li class="nav-item <?php if($active=='Home') echo'active'; ?>"><a class="nav-link" href="../index.php" >Home</a></li>
-                    <li class="nav-item <?php if($active=='Shop') echo'active'; ?>"><a class="nav-link" href="../showroom.php">Showroom</a>
-                      
-                    </li>
-
+                      <li class="nav-item dropdown <?php if($active=='Shop') echo'active';?>">
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" data-target="#showroom"
+                      aria-haspopup="true" aria-expanded="false">
+                                  Showroom
+                                </a>
+                                <ul id="showroom" class="dropdown-menu">
+                                  <li>
+                                    <a  class='dropdown-item' href='showroom.php'>Showroom </a>
+                                  </li>
+                                  <?php getPCats(); ?>
+                               </ul>                                                                             
+                              </li>
                     <li class="nav-item <?php if($active=='Account') echo'active'; ?>">
                           <?php        
                              if(!isset($_SESSION['customer_email'])){
