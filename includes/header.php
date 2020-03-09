@@ -105,9 +105,9 @@ if(isset($_GET['pro_id'])){
                   </a>
                 </div>
                   <div class="col-xl-6 col-lg-5">
-                    <form class="header-search-form">
-                      <input type="text" placeholder="Search on Archive Mall...">
-                      <button><i class="fa fa-search"></i></button>
+                    <form  method="POST" class="header-search-form" action="search.php" >
+                      <input type="text" name="text" placeholder="Search on Archive Mall...">
+                      <button type="submit" name="search"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
                 <div class="col-xl-4 col-lg-5">

@@ -81,9 +81,8 @@ $count =mysqli_num_rows($run_cart);
 									</div>
 								</div>
 							</div>
-							
-							<script src="https://js.paystack.co/v1/inline.js"></script>
-							<button type="button" name="save" class="site-btn btn-full" onclick="payWithPaystack()">Place Order</button>
+
+							<button  name="save" class="site-btn btn-full">Place Order</button>
 						</div>
 					</div>
 				</div>

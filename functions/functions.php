@@ -205,6 +205,89 @@ function getPCats(){
 
 ///  getpCatsPro functions begin ///
 
+function search(){
+    global $db;
+
+    if(isset($_POST['submit'])){
+
+        $word = $_POST['text'];
+
+        $get_products = "select * from products where product_title='$word'";
+
+        $run_products = mysqli_query($db, $get_products);
+
+        $count = mysqli_num_rows($run_products);
+
+        if($count==0){
+
+            echo "
+
+                <div class='box'>
+                        <h3> No Products Found </h3>
+                </div>
+            
+            ";
+
+        }else{
+
+            echo "
+            <div class='container row justify-content-center'>
+            
+            <h2 class='text-center'> Searc result for '$word' </h2>
+            <br>
+            <br>
+      
+            </div>
+         
+            <div class='container'><!-- container begin -->
+            <div class='row'><!-- row begin -->
+";
+        }
+       
+                
+
+        while($row_products= mysqli_fetch_array($run_products)){
+            
+            $pro_id = $row_products['product_id'];
+
+            $pro_title = $row_products['product_title'];
+
+            $pro_price = $row_products['product_price'];
+
+            $pro_img1 = $row_products['product_img1'];
+
+            $pro_label = $row_products['product_label'];
+
+        echo "
+             <td>
+             <div class='mix col-lg-3 col-md-6 new'>
+             <div class='product-item'>
+                 <figure>
+                 <img class='img-fluid' src='admin_area/product_images/$pro_img1' alt='product_image'>
+                 <div class='bache'>$pro_label </div>
+                 </figure>
+                 <div class='product-info'>
+                 <h6>$pro_title </h6>
+                 <p>&#8358;$pro_price</p>
+                 <a href='details.php?pro_id=$pro_id' class='site-btn btn-line'>ADD TO CART</a>
+                 </div>
+             </div>
+         </div>
+                    
+                        ";
+
+                        }
+                                        echo"  </div><!-- row finish -->
+                                        </div><!-- container-fluid finish -->
+                        
+                    </div>
+
+                            ";
+        
+    }
+}
+
+
 function getpcatpro(){
 
     global $db;
@@ -242,9 +325,10 @@ function getpcatpro(){
         }else{
 
             echo "
-            <div class='row'>
+            <div class='container row justify-content-center'>
             
-            <h2 class='text-center' >  $p_cat_title </h2>
+            <h2 class='text-center'>  $p_cat_title </h2>
+            <br>
             <br>
       
             </div>

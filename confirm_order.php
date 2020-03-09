@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+$active = 'Account';
+
 include("includes/dbcon.php");
 include("functions/functions.php");
 
@@ -26,8 +28,6 @@ $customer_email = $row_customer['customer_email'];
 $customer_phone = $row_customer['customer_phone'];
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,41 +35,138 @@ $customer_phone = $row_customer['customer_phone'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Archive Mall</title>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <script src="https://kit.fontawesome.com/dcfefef11a.js"></script>
+ 
+
+   <!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
    
-    <link rel="stylesheet" href="styles/style.css">
+    <!-- Stylesheets -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+  	<link rel="stylesheet" href="css/font-awesome.min.css"/>
+	  <link rel="stylesheet" type="text/css" href="css/flaticon.css"/>
+	  <link rel="stylesheet" href="css/slicknav.min.css"/>
+	  <link rel="stylesheet" href="css/jquery-ui.min.css"/>
+	  <link rel="stylesheet" href="css/owl.carousel.min.css"/>
+	  <link rel="stylesheet" href="css/animate.css"/>
+    <link rel="stylesheet" href="styles/style.css"/>
 
 </head>
 
 
 <body>
-<nav class="main-navbar navbar navbar-light navbar-expand-sm"><!-- navbar navber-default begin-->
-      <?php  
-       $get_logo = "select * from logo";
-       $run_logo = mysqli_query($con, $get_logo);
+  <!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+      
+        <!-- Header Section -->
+      <header class="header-section">
+            <div class="top-header-top">
+          <div class="header-top">
+                 
+              <div class="row justify-content-center">
+                <div class="col-lg-2 text-center text-lg-left">
+                  <!-- logo -->
+                  <a href="./index.php" class="site-logo">             
+                 
+                  <span class="logo-head">Archive Mall </span>
+                  </a>
+                </div>
+                  <div class="col-xl-6 col-lg-5">
+                  <form  method="POST" class="header-search-form" action="search.php" >
+                      <input type="text" name="text" placeholder="Search on Archive Mall...">
+                      <button type="submit" name="search"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="col-xl-4 col-lg-5">
+                <div class="user-panel">
+                  <div class="up-item">
+                    <i class="fa fa-user"></i>
+                    <?php 
+                
+                if(!isset($customer_email)){
 
-       while($row_logo = mysqli_fetch_array($run_logo)){
+                    echo  "<a href='customer_login.php'> Sign In or</a> <a href='customer_register.php'> Sign Up</a>";
+                  }else{
+                    echo "<a href='logout.php'> Log Out </a>";
+       
+                }
+                
+               ?>
+                </li>
+                   
+                  </div>
+                  <div class="up-item">
+                    <div class="shopping-card">
+                      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                      <span><?php items(); ?></span>
+                    </div>
+                    <a href="cart.php">Cart</a>
+                  </div>
+                </div>
+              </div>
+              </div>
+       
+			</div>
+    </div> 
+    
+    <nav class="navbar navbar-dark navbar-expand-md  sticky-top">
+        <div class="container-fluid">     
 
-                $logo_id = $row_logo['logo_id'];
-                $logo = $row_logo['b_logo'];
-                $b_name = $row_logo['b_name'];
-       }
+            <button class="navbar-toggler" type="button" data-toggle="collapse" 
+            data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon my-toggler "></span>
+              </button>
+              <div class="collapse navbar-collapse"></div>
 
-      ?>
-         <div class="container-fluid"><!-- container-fluid begin-->
-            <a class="navbar-brand ml-3" href="index.php">
-              <img src="images/<?php echo $logo; ?>" width="60" height="60" class="logo">
-              <span class="logo-head"><?php echo $b_name; ?></span>
-            </a>
-            </div>   
-                    
-                    </div><!-- container-fluid finish -->
-                  </nav><!-- navbar navber-default finish -->
+              <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav mr-auto">
+                      <li class="nav-item <?php if($active=='Home') echo'active'; ?>"><a class="nav-link" href="index.php" >Home</a></li>
+                      <li class="nav-item dropdown <?php if($active=='Shop') echo'active';?>">
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" data-target="#showroom"
+                      aria-haspopup="true" aria-expanded="false">
+                                  Showroom
+                                </a>
+                                <ul id="showroom" class="dropdown-menu">
+                                  <li>
+                                    <a  class='dropdown-item' href='showroom.php'>Showroom </a>
+                                  </li>
+                                  <?php getPCats(); ?>
+                               </ul>                                                                             
+                              </li>
+                    <li class="nav-item <?php if($active=='Account') echo'active'; ?>">
+                          <?php        
+                             if(!isset($_SESSION['customer_email'])){
+
+                                    echo  "<a class='nav-link' href='customer/my_account.php'> My Account</a>";
+
+                                  }else{
+                                    echo "<a class='nav-link' href='customer/my_account.php?my_orders'> My Account </a>";
+                      
+                                }
+
+                              ?>
+
+                    </li>
+
+                      <li class="nav-item"><a class="nav-link <?php if($active=='Shopping Cart') echo'active';?>" href="cart.php" >Shopping Cart</a></li>
+                     
+                      <li class="nav-item"><a class="nav-link <?php if($active=='Contact Us') echo'active'; ?>" href="contactus.php" >Contact Us</a></li>
+                     
+                    </ul>
+                              </div> 
+        </div>
+    </nav>
+      </header>
 
 <div id="content"><!-- content Begin -->
-    <div class="container-fluid"><!-- container Begin -->
-        <div class="row checkout">
+    <div class="container"><!-- container Begin -->
+        <div class="row checkout justify-content-center">
         <div class="col-md-8"><!-- col-sm-9 Begin -->
         <?php
 
@@ -194,8 +291,7 @@ $customer_phone = $row_customer['customer_phone'];
         <div class="text-center"><!--text-center Begin -->
 
         <script src="https://js.paystack.co/v1/inline.js"></script>
-
-                            <button type="button" name="pay_now" class="btn btn-primary col-sm-6" onclick="payWithPaystack()">
+                            <button type="button" name="pay_now" class="site-btn btn-full" style="margin-bottom: 10vh;" onclick="payWithPaystack()">
                             <i class="fa fa-user-md"></i>   Pay Now
                             </button>
                         </div><!--text-center Finish -->
@@ -203,40 +299,32 @@ $customer_phone = $row_customer['customer_phone'];
 
     </form><!-- Form  Finish -->
 
-    
+</div>
+        </div>
 
 </div>
 
 </div>
-
-<div class="col-sm-4"><!-- col-sm-3 Begin -->
+                            
 <?php
 
-   include("includes/order_summary.php");
+        include("includes/footer.php");
 
-   ?>
+        ?>
 
-</div><!-- col-sm-3 Finish -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+</body>
+</html>
 
-<?php if(isset($_POST['pay_now'])){
-
-
-$ip_add = getRealIpUser();
-
-
-        $delete_cart = "delete from cart where ip_add='$ip_add'";
-
-        $run_delete = mysqli_query($con, $delete_cart);
-}
-
-?>
 
 <script>
   function payWithPaystack(data){
     var handler = PaystackPop.setup({
-      key: 'pay stack public key',
+      key: 'pk_test_6915e45b1bb5261b2fd67ea798081b572cb74753',
       email: '<?php echo $customer_email; ?>',
-      amount: '<?php echo $total; ?>00',
+      amount: <?php echo $total . '00'; ?>,
       metadata: {
          custom_fields: [
             {

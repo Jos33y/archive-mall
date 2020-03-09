@@ -242,66 +242,59 @@ function getpcatpro(){
 
         }else{
 
+            
             echo "
-
-                <div class='box'>
-
-                    <h2> $p_cat_title </h2>
-
-                    <p> $p_cat_desc </p>
-
-                </div>
+            <div class='container row justify-content-center'>
+            
+            <h2 class='text-center'>  $p_cat_title </h2>
+            <br>
+            <br>
+      
+            </div>
          
-            <div class='col-sm-4 mobile-responsive'>
-
-            <div class='table-responsive'><!-- table Responsive Begin -->
-
-            <table class='table shop'><!-- table Begin -->
-
-              <tbody><!-- Tbody Begin -->
-                
-                    <tr>
+            <div class='container'><!-- container begin -->
+            <div class='row'><!-- row begin -->
 ";
         }
        
                 
-
         while($row_products= mysqli_fetch_array($run_products)){
             
-        $pro_id = $row_products['product_id'];
+            $pro_id = $row_products['product_id'];
 
-        $pro_title = $row_products['product_title'];
+            $pro_title = $row_products['product_title'];
 
-        $pro_price = $row_products['product_price'];
+            $pro_price = $row_products['product_price'];
 
-        $pro_img1 = $row_products['product_img1'];
+            $pro_img1 = $row_products['product_img1'];
+
+            $pro_label = $row_products['product_label'];
 
         echo "
-             <td>
-                                    <a href='details.php?pro_id=$pro_id;'>
-                                      
-                                        <img class='top-images' src='admin_area/product_images/$pro_img1 ' alt='product_image'><br>
-                                           
-                                               <span class='top-name'> $pro_title </span><br>
-                                                 <span class='top-price'> &#8358; $pro_price </span> 
-                                            
-                                    </a>
-        
-                                  
-                                  </td>
-                    
-                        ";
+        <td>
+        <div class='mix col-lg-3 col-md-6 new'>
+        <div class='product-item'>
+            <figure>
+            <img class='img-fluid' src='admin_area/product_images/$pro_img1' alt='product_image'>
+            <div class='bache'>$pro_label </div>
+            </figure>
+            <div class='product-info'>
+            <h6>$pro_title </h6>
+            <p>&#8358;$pro_price</p>
+            <a href='details.php?pro_id=$pro_id' class='site-btn btn-line'>ADD TO CART</a>
+            </div>
+        </div>
+    </div>
+               
+                   ";
 
-                        }
-                                        echo" </tr>
-                                    
-                                    </tbody><!-- Finish -->
+                   }
+                                   echo"  </div><!-- row finish -->
+                                   </div><!-- container-fluid finish -->
+                   
+               </div>
 
-                            </table><!-- table Finish -->
-
-                            </div><!-- table-responsive Finish -->
-
-                            ";
+                       ";
         
     }
 }

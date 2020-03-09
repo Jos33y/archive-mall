@@ -8,6 +8,4 @@ $con = mysqli_connect("localhost", "u721127448_Shop", "LagbaluJ19", "u721127448_
 
 $conn = mysqli_connect("localhost", "u721127448_Admin", "LagbaluJ19", "u721127448_eacez");
 
-
-
 ?>

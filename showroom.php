@@ -2,6 +2,7 @@
         $active ='Shop';
         include("includes/header.php");
 ?>
+
 </nav>
 </header>
 <div id="content"><!-- content Begin -->

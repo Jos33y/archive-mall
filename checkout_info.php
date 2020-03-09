@@ -73,19 +73,6 @@ $customer_zip = $row_customer['customer_zip'];
 		<div class="loader"></div>
 	</div>
       
-      <?php  
-       $get_logo = "select * from logo";
-       $run_logo = mysqli_query($con, $get_logo);
-
-       while($row_logo = mysqli_fetch_array($run_logo)){
-
-                $logo_id = $row_logo['logo_id'];
-                $logo = $row_logo['b_logo'];
-                $b_name = $row_logo['b_name'];
-       }
-
-      ?>
-      
         <!-- Header Section -->
       <header class="header-section">
             <div class="top-header-top">
@@ -96,13 +83,13 @@ $customer_zip = $row_customer['customer_zip'];
                   <!-- logo -->
                   <a href="./index.php" class="site-logo">             
                  
-                  <span class="logo-head"><?php echo $b_name; ?> </span>
+                  <span class="logo-head">Archive Mall </span>
                   </a>
                 </div>
                   <div class="col-xl-6 col-lg-5">
-                    <form class="header-search-form">
-                      <input type="text" placeholder="Search on Archive Mall...">
-                      <button><i class="fa fa-search"></i></button>
+                  <form  method="POST" class="header-search-form" action="search.php" >
+                      <input type="text" name="text" placeholder="Search on Archive Mall...">
+                      <button type="submit" name="search"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
                 <div class="col-xl-4 col-lg-5">
@@ -149,7 +136,18 @@ $customer_zip = $row_customer['customer_zip'];
               <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav mr-auto">
                       <li class="nav-item <?php if($active=='Home') echo'active'; ?>"><a class="nav-link" href="index.php" >Home</a></li>
-                    <li class="nav-item <?php if($active=='Shop') echo'active'; ?>"><a class="nav-link" href="showroom.php">Showroom</a></li>
+                      <li class="nav-item dropdown <?php if($active=='Shop') echo'active';?>">
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" data-target="#showroom"
+                      aria-haspopup="true" aria-expanded="false">
+                                  Showroom
+                                </a>
+                                <ul id="showroom" class="dropdown-menu">
+                                  <li>
+                                    <a  class='dropdown-item' href='showroom.php'>Showroom </a>
+                                  </li>
+                                  <?php getPCats(); ?>
+                               </ul>                                                                             
+                              </li>
 
                     <li class="nav-item <?php if($active=='Account') echo'active'; ?>">
                           <?php        
@@ -178,7 +176,7 @@ $customer_zip = $row_customer['customer_zip'];
         
 <div id="content"><!-- content Begin -->
     <div class="container"><!-- container Begin -->
-    <form action="checkout.php" method="post" class="checkout-form"><!--form Begin -->
+    <form  method="post" class="checkout-form"><!--form Begin -->
         <div class="row checkout">
             <div class="col-lg-6"><!-- col-sm-6 Begin -->
                  <h6 class="contact-title"><strong> <i class="fa fa-check-circle"></i> ADDRESS DETAILS</strong></h6>
@@ -317,37 +315,12 @@ customer_country='$c_country', customer_zip='$c_zip'  where customer_id = '$upda
 $run_customer = mysqli_query($con, $update_customer);
 if($run_customer){
 
-  echo"<script>window.open('orders.php?c_id=<?php echo $update_id; ?>', '_self')</script>";
+ 
   echo"<script>alert('Address has been saved sucessfully')</script>";
+  echo"<script>window.open('confirm_order.php', '_self')</script>";
 }
 
 }
 
 ?>
 
-<script>
-  function payWithPaystack(data){
-    var handler = PaystackPop.setup({
-      key: 'pk_live_cc4046a6477f46665e02a2fc5a5f9edf6eb280dd',
-      email: '<?php echo $customer_email; ?>',
-      amount: '<?php echo $total; ?>00',
-      metadata: {
-         custom_fields: [
-            {
-                display_name: "Mobile Number",
-                variable_name: "mobile_number",
-                value: "<?php echo $customer_phone; ?>"
-            }
-         ]
-      },
-      callback: function(response){
-          alert('success. transaction ref is ' + response.reference);
-          window.open('orders.php?c_id=<?php echo $update_id; ?>', '_self')
-      },
-      onClose: function(){
-          alert('Transaction Cancelled');
-      }
-    });
-    handler.openIframe();
-  }
-</script>
